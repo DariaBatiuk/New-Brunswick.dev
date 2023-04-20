@@ -4,9 +4,11 @@ import Comment from '../comment';
 import "./index.css"
 import { Link } from 'react-router-dom';
 import Markdown from '../markdown';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useContext} from 'react';
+import { useParams } from 'react-router-dom';
+import { UserContext } from '../../App';
 const LargePost = ({postData}) => {
-
+ const userData = useContext(UserContext);
   const [user , setUser] = useState({});
 
   useEffect(() => {
@@ -21,11 +23,28 @@ const LargePost = ({postData}) => {
   }, [postData])
 
 
-  useEffect(() => {
-    console.log(postData);
-  }, [postData]);
 
-  
+
+  const { id } = useParams();
+
+ 
+
+  const addComment = () => {
+    const comment = document.getElementById('commentInput').value;
+fetch(`http://localhost:3003/api/projects/${id}/reactions`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+   
+  },
+  body: JSON.stringify({ reactionBody: comment , user: userData.id}),
+})
+window.location.reload();
+  }
+
+
+
+
 
 
 return (
@@ -49,18 +68,19 @@ return (
 </div>
 </div>
 
+ 
 
 
-<div id='inputContainer'>
+     <div id='inputContainer'>
     <textarea placeholder="Add a comment" className='textarea is-rounded' rows="3" id='commentInput'/>
-    <button className='button is-rounded is-primary' id='commentButton'>Post</button>
+    <button className='button is-rounded is-success' id='commentButton' onClick={addComment}>Post</button>
     </div>
 
 
 <div className='columns is-multiline is-justify-content-center mt-5' >
 {postData.reactions ? (
- postData.reactions.map((comment) => (
-    <div className='column is-10' key={comment.id}>
+ postData.reactions.map((comment, index) => (
+    <div className='column is-10' key={index}>
       <Comment commentData={comment}/>
     </div>
   ))

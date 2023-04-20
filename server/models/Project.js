@@ -1,10 +1,6 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model ,Types } = require("mongoose");
 const User = require('./User');
 const reactionSchema = new Schema({
-     reactionId: {
-          type: Schema.Types.ObjectId,
-          default: () => new Types.ObjectId(),
-     },
      reactionBody: {
           type: String,
 
@@ -34,8 +30,7 @@ const projectSchema = new Schema({
           max_length: 50,
      },
      date: {
-          type: Date,
-          default: Date.now(),
+          type: String
      },
      description: {
           type: String,

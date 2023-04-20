@@ -15,7 +15,7 @@ router.get(
 
 router.get('/logout', (req, res) => {
     req.logout();
-    res.redirect("http://localhost:3000/login");
+    res.redirect("http://localhost:3000/");
 });
 
 router.get('/login/success', (req, res) => {

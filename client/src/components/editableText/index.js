@@ -32,7 +32,7 @@ function EditableText(props) {
     )
   ) : (
     <div id="editText">
-    <p>{props.text}</p>
+    <p>{props.text ? props.text : "add info"}</p>
     <RxPencil2 onClick={() => setEditing(true)} id="editBtn"/>
     </div>
   );

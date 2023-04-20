@@ -1,18 +1,14 @@
-
 import SmallPost from '../../components/smallPost';
-// import HelpNeeded from '../../components/helpneeded';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useContext} from 'react';
 import "./index.css"
 import { Link } from 'react-router-dom';
+import { NewsContext , PageContext } from '../../App';
+import News from '../../components/news';
 function Home() {
     
-
+const newsData = useContext(NewsContext);
+const {pageNumber , setPageNumber}  = useContext(PageContext);
 const [postData, setPostData] = useState([]);
-
-  // const [commentData, setCommentData] = useState([]);
-  
-
-  // const [helpData , setHelpData] = useState([]);
 
 
 useEffect(() => {
@@ -23,29 +19,27 @@ useEffect(() => {
 }, [])
 
 
+// function handleClick() {
+// setPageNumber(pageNumber + 1)
+// }
+
+const [newsIndex , setNewsIndex] = useState(0);
 
 useEffect(() => {
-  console.log(postData);
-}, [postData]);
+   if (newsIndex < 0) {
+    setNewsIndex(newsData?.length - 1);
+  }
+}, [newsIndex, newsData?.length]);
 
+useEffect(() => {
+  setNewsIndex(0);
+}, [newsData]);
 
 
 return (
-  <div className='columns mr-2 ml-2' id='parent'>
-  <div className="column is-2" id='left'>
-  <ul className="columns is-multiline">
-    {/* {helpData.map(data => ( 
-      <div className='column is-12' key={data.id}>
-    <HelpNeeded helpData={data}/>
-    </div>
-    )
-    )} */}
-  </ul>
-  </div>
-
-
-  <div className="column is-10" id='right'>
- <div className="columns is-multiline" id='container'>
+  <div className='columns mr-2 ml-2 test' id='parent'>
+  <div className="column is-8" id='left'>
+    <div className="columns is-multiline">
     {postData.map(data => ( 
       <div className='column is-12' key={data._id}>
     <Link to={`/post/${data._id}`}>
@@ -58,9 +52,16 @@ return (
     )}
     </div>
   </div>
-  </div>
- 
-);
+
+
+  <div className="column is-4" id='right'>  
+  {newsData && (<News newsData={newsData[newsIndex]} changeIndex={setNewsIndex} index={newsIndex} nextPage={() => setPageNumber(pageNumber + 1)} length={newsData?.length}/>)}
+
+</div>
+</div>
+
+)
 }
+
 
 export default Home;

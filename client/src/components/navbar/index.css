@@ -1,35 +1,39 @@
 .navItemActive {
   border: 3px solid #3e8ed0;
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
-#searchBar{
-width: 200px;
+#searchBar {
+  width: 200px;
 }
 
-#leftNav{
-display: flex;
-align-items: center;
+#leftNav {
+  display: flex;
+  align-items: center;
 }
 
-#rightNav div{
-    display: flex;
-    align-items: center;
+#rightNav div {
+  display: flex;
+  align-items: center;
 }
 
-#nav{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    height: 80px;
-    border-bottom: 1px solid #ccc;
-    background-color: #151718;
+#nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 80px;
+  border-bottom: 1px solid #ccc;
+  background-color: #151718;
 }
 
 #nav img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }
 
+#logo {
+  background: url(../../img/logo.png);
+  background-size: cover;
+}

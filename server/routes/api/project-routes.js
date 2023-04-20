@@ -29,7 +29,7 @@ router
 /*  sets up the route for adding a reaction to a thought. 
 This route is set up using the .route() method of the router object and chaining the .post() method. */
 router
-  .route('/:projectId/reactions')
+  .route('/:id/reactions')
   .post(createReaction);
 
 /* sets up the route for deleting a reaction from a thought. 

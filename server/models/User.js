@@ -18,8 +18,6 @@ const userSchema = new Schema(
           },
           image: {
                type: String,
-               max_length: 250,
-               nullable: true,
           },
           skills: {
                type: [String],
@@ -30,9 +28,7 @@ const userSchema = new Schema(
                nullable: true,
           },
           website: {
-               type: String,
-               max_length: 150,
-               nullable: true,
+               type: [String],
           },
           usersFollowed: {
                type: Schema.Types.ObjectId,

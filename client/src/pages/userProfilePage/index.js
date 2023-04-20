@@ -7,26 +7,28 @@
 
     import { useParams } from 'react-router-dom';
 
+  
 
     const UserProfilePage = () => {
 
         const [profileData, setProfileData] = useState({});
 
-        const [postData, setPostData] = useState([]);
 
         const [error, setError] = useState(null);
 
         const { id } = useParams();
 
         useEffect(() => {
+       
             fetch(`http://localhost:3003/api/users/${id}`)
                 .then(response => response.json())
                 .then(data => setProfileData(data))
                 .catch(error => setError(error))
-        }, [id])
-
-
-  
+         
+        }, [])
+        // useEffect(() => {
+        //     console.log(profileData)
+        // }, [profileData])
 
           if (error) {
             return <Navigate to="/404" />;
@@ -36,9 +38,9 @@
             <div id='parent'>
             <UserProfile profileData={profileData} />
             <div className="columns is-multiline">
-            {postData.map(data => (
-            <div className="column is-12" key={data.id}>
-                <Link to={`/post/${data.id}`}>
+            {profileData.Projects  && profileData.Projects.map((data, index) => (
+            <div className="column is-12" key={index}>
+                <Link to={`/post/${data._id}`}>
             <SmallPost postData={data} />
             </Link>
             </div>

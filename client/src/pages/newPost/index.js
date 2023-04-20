@@ -14,16 +14,10 @@ const NewPost = () => {
             title: '',
             body: '',
             tags: [],
-            collaborators: []
+            // collaborators: []
         });
     
         const [preview, setPreview] = useState(false);
-
-        useEffect(() => {
-            console.log(inputValue);
-        }, [inputValue]);
-    
-    
     
     
         const handleInput = (e) => {
@@ -44,7 +38,8 @@ const NewPost = () => {
                     description: inputValue.body,
                     tags: inputValue.tags,
                     originalPoster: userData.id,
-                    userId: userData.id
+                    userId: userData.id,
+                    date : new Date(Date.now()).toLocaleString('en-US', { month: 'short', day: 'numeric'})
 
 
 
@@ -73,9 +68,9 @@ const NewPost = () => {
             <div className='column is-12' >
             <HandleArray dataArray={inputValue.tags} updateParentState={handleState} fieldName="tags" Btn="Add Tags"/>
          </div>
-            <div className='column is-12' >
+            {/* <div className='column is-12' >
             <HandleArray dataArray={inputValue.collaborators} updateParentState={handleState} fieldName="collaborators" Btn="Add Collaborators" placeholder="github"/>
-            </div>
+            </div> */}
             </div>
 </div>
 <div id="text">
@@ -93,11 +88,11 @@ const NewPost = () => {
      <span className="tag is-info is-rounded">{tag}</span>
     ))}
 </div> }
-{inputValue.collaborators.length > 0 && <div className="box">{
+{/* {inputValue.collaborators.length > 0 && <div className="box">{
     inputValue.collaborators.map((collab) => (
         <span className="tag is-info is-rounded">{collab}</span>
     ))}
-</div> }
+</div> } */}
 
     <Markdown markdown={inputValue.body}/>
     </div>

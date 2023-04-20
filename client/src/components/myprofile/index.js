@@ -10,9 +10,8 @@ const MyProfile = ({ profileData }) => {
 
 
 const [profile, setProfile] = useState({
-    name:  '',   
-    email: '',
-    website: '',
+    name:   '',   
+    website: [],
     image: '',
     bio : '',
     skills: []
@@ -23,7 +22,6 @@ const [hasChanged, setHasChanged] = useState(false)
 useEffect(() => {
     setProfile({
         name: profileData.name,
-        email: profileData.email,
         website: profileData.website,
         image: profileData.image,
         skills: profileData.skills,
@@ -32,23 +30,38 @@ useEffect(() => {
 }, [profileData])  
 
 
-useEffect(() => {
-    console.log(profile);
-}, [profile])
-
-
 function handleState(fieldName, value) {
-  setProfile({
-    ...profile,
-    [fieldName]: value
-  });
-  setHasChanged(true)
-}
+    setProfile({
+      ...profile,
+      [fieldName]: value
+    });
+    setHasChanged(true)
+  }
+
+
+
+
+
+
+
+
 
 function handleSave() {
   // save to database
+  fetch(`http://localhost:3003/api/users/${profileData.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: profile.name,
+      website: profile.website,
+      skills: profile.skills,
+      bio: profile.bio
+    })
+  })
   alert("Profile updated!")
-  setHasChanged(false)
+  window.location.reload()
 }
 
 
@@ -57,15 +70,18 @@ return (
 {hasChanged && <GoCheck className="button is-info" id="save" onClick={handleSave} />}
     <div  className="columns is-multiline">
       <div className="column is-5 is-flex is-justify-content-center ">
-  <div className="columns  is-multiline is-align-items-center">
-    <div className="column is-12 is-flex is-justify-content-center inputfield">
-    <EditableText text={profile.name} updateParentState={handleState} fieldName="name"/>
-        </div>
-        <div className="column is-12 is-flex is-justify-content-center inputfield">
-        <EditableText text={profile.bio} updateParentState={handleState} fieldName="bio"/>
-        </div>
-        
-  </div>
+      <div className="columns  is-multiline is-align-items-center">
+ 
+ <div className="column is-12 is-flex is-justify-content-center" id="bio">
+     <div className="colums">
+       <div className="column is-12 has-text-centered is-size-4 has-text-white has-text-weight-semibold">Social Links</div>
+     <div className="column is-12 inputfield">
+ <HandleArray dataArray={profile.website}   updateParentState={handleState} fieldName="website" htmlEl="input" Btn="Add a link"/>
+ </div>
+ </div>
+     </div>
+   
+</div>
   </div>
 
 
@@ -81,15 +97,18 @@ return (
         </div>
   </div>
   </div>
-  <div className="column is-5 is-flex is-justify-content-center ">
+  <div className="column is-5 is-flex is-justify-content-center">
   <div className="columns  is-multiline is-align-items-center">
-    <div className="column is-12 is-flex is-justify-content-center inputfield">
-    <EditableText text={profile.email} updateParentState={handleState} fieldName="email"/>
+ 
+    <div className="column is-12 is-flex is-justify-content-center" id="bio">
+        <div className="colums">
+          <div className="column is-12 has-text-centered is-size-4 has-text-white has-text-weight-semibold"> Bio</div>
+        <div className="column is-12">
+    <EditableText text={profile.bio} updateParentState={handleState} fieldName="bio" htmlEl="textarea"/>
+    </div>
+    </div>
         </div>
-        <div className="column is-12 is-flex is-justify-content-center inputfield">
-        <EditableText text={profile.website} updateParentState={handleState} fieldName="website"/>
-
-        </div>
+      
   </div>
     </div>
     </div>

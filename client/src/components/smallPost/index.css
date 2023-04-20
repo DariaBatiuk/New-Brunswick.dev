@@ -15,6 +15,7 @@
 #smallpost img {
     width: 60px;
     height: 60px;
+    border-radius: 50%;
     
 }
 
@@ -27,3 +28,32 @@
 #postbottom{
 padding: 0 20px 20px 20px;
 }
+
+#edit{
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+}
+#del{
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: none;
+}
+
+
+#del:hover {
+  background-color: red;
+}
+#smallpost:hover #del,
+#smallpost:hover #edit{
+	display: block;
+	height: 50px;
+  width: 50px;
+}
+
+#edit:hover {
+  background-color: green;
+}
+

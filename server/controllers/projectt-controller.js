@@ -83,7 +83,7 @@ const ProjectController = {
           return;
         }
         return User.findOneAndUpdate(
-          { _id: parmas.userId },
+          { _id: params.userId },
           { $pull: { Projects: params.Id } },
           { new: true }
         )
@@ -101,7 +101,7 @@ const ProjectController = {
 // adds a new reaction to a Project by its ID.
   createReaction({params, body}, res) {
     Project.findOneAndUpdate(
-      {_id: params.ProjectId}, 
+      {_id: params.id}, 
       {$push: {reactions: body}}, 
       {new: true, runValidators: true})
     .populate({path: 'reactions', select: '-__v'})

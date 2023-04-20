@@ -1,9 +1,10 @@
 import LargePost from '../../components/largePost';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import "./index.css"
+
 function SinglePost() {
-    
+
 
 const [postData, setPostData] = useState({});
   const [error, setError] = useState(null);
@@ -17,7 +18,6 @@ useEffect(() => {
   .then(data => setPostData(data))
   .catch(error => setError(error))
 }, [])
-
 
 
 

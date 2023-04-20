@@ -5,20 +5,21 @@ import HandleArray from '../handleArray';
 import './index.css';
 import Markdown from '../markdown';
 import { GoCheck } from 'react-icons/go';
-
+import { useParams} from 'react-router-dom';
 
 const EditPost = ({ postData }) => {
 
 
-
-
+const { id } = useParams();
 
     const [post, setPost] = useState({
         title: '',
         body: '',
         tags: [],
-        collaborators : []
+        // collaborators : []
     });
+
+    const [user , setUser] = useState({})
 
     const [hasChanged, setHasChanged] = useState(false)
 
@@ -27,19 +28,22 @@ const EditPost = ({ postData }) => {
             {
                 title: postData.title,
                 body: postData.description,
-                tags : ['tag1', 'tag2' , 'tag3'],
-                collaborators : ['collab1', 'collab2', 'collab3']
+                tags : postData.tags,
+                // collaborators : ['collab1', 'collab2', 'collab3']
             }
         );
     }, [postData]);
 
+    useEffect(() => {
+        if (postData.originalPoster) {
+        fetch(`http://localhost:3003/api/users/${postData.originalPoster}`)
+        .then(response => response.json())
+        .then(data => setUser(data))
+        .catch(error => console.log(error))
+        }
+    }, [postData])
+        
 
-
-
-
-    // useEffect(() => {
-    //     console.log(post);
-    // }, [post]);
 
 
     function handleState(fieldName, value) {
@@ -52,9 +56,22 @@ const EditPost = ({ postData }) => {
 
 
     function handleSave() {
-        // save to database
-        alert("Profile updated!")
+    fetch(`http://localhost:3003/api/projects/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            title: post.title,
+            description: post.body,
+            tags: post.tags,
+            // collaborators: post.collaborators
+        })
+    })
+
+        alert("Post updated!")
         setHasChanged(false)
+       window.location.reload()
       }
 
 
@@ -64,11 +81,11 @@ const EditPost = ({ postData }) => {
         <div className='container'>
             <div>
         <div id='top'>
-            <img src="https://www.pngkey.com/png/full/73-730477_first-name-profile-image-placeholder-png.png" alt="Placeholder image"/>
+            <img src={user.image} alt="Placeholder image"/>
             <div id='info'>
-                <p className='is-size-4 has-text-weight-bold'></p>
+                <p className='is-size-4 has-text-weight-bold'>{user.name}</p>
         
-                <p className='is-size-6'>Posted on april 7</p>
+                <p className='is-size-6'>{postData.date}</p>
             </div>
      
          </div>
@@ -82,9 +99,9 @@ const EditPost = ({ postData }) => {
             <div className='column is-12' >
             <HandleArray dataArray={post.tags} updateParentState={handleState} fieldName="tags" Btn="Add Tags" />
          </div>
-            <div className='column is-12' >
+            {/* <div className='column is-12' >
             <HandleArray dataArray={post.collaborators} updateParentState={handleState} fieldName="collaborators" Btn="Add Collaborators" placeholder="github" />
-            </div>
+            </div> */}
             </div>
         <div id='textarea'>
         <EditableText text={post.body} updateParentState={handleState} fieldName="body" htmlEl="textarea"/>
