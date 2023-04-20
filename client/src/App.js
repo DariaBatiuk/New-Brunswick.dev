@@ -9,6 +9,8 @@ import EditPost from './pages/editPostPage';
 import NewPost from './pages/newPost';
 import UserProfilePage from './pages/userProfilePage';
 import LoginPage from './pages/loginPage';
+import Modal from './components/modal/modal';
+
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -17,6 +19,15 @@ export const UserContext = createContext();
 function App() {
 
     const [userData, setUserData] = useState(null);
+    const [modal , setModal] = useState(false);
+
+    function modalFunction() {
+      setModal(!modal);
+    }
+
+    useEffect(() => {
+      console.log('modal', modal);
+    }, [modal])
 
   useEffect(() => {
    const getUser = async () => {
@@ -42,7 +53,6 @@ function App() {
     getUser();
 }, [])
 
-
 useEffect(() => {
   console.log(userData);
 }, [userData]);
@@ -55,6 +65,10 @@ useEffect(() => {
     <StartTop/>
 
   <Nav/>
+  <Modal
+  isModal={modalFunction} 
+  isWidget={modal}
+  />
       <Routes>
         <Route 
           path="/" 

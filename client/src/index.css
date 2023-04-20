@@ -14,3 +14,12 @@ code {
     monospace;
 }
 
+#root{
+  background-image: url(../../client/src/assets/rm378-07.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100%;
+}
+

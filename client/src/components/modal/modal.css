@@ -1,0 +1,67 @@
+/* .modal_wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, .2);
+    backdrop-filter: blur(10px);
+}
+
+.modal_wrapper.open {
+    height: 100%;
+    display: block;
+}
+
+.modal_wrapper.close {
+    height: 0;
+    display: none;
+}
+
+.modal_body {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    margin-top: 5%;
+    padding: 20px;
+    border-radius: 10px;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.modal_body::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.modal_body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.modal_close {
+    text-align: right;
+    margin-top: -15px;
+    font-size: 40px;
+    color: grey;
+    cursor: pointer;
+} */
+
+#parent .app {
+    height: 100px;
+    width: 100px;
+    position: relative;
+}
+
+#btnWgt {
+    border-radius: 100%;
+    position: fixed;
+    bottom: 0;
+    margin: 30px;
+    height: 70px;
+    width: 70px;
+}
+
+#icon {
+    height: 35px;
+    width: 35px;
+}
+

@@ -17,8 +17,10 @@
     "axios": "^1.3.5",
     "concurrently": "^7.0.0",
     "express": "^4.18.2",
+    "gptchat": "^0.2.1",
     "mongodb": "^5.2.0",
     "mongoose": "^7.0.3",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "vitepress-tags": "^0.6.5"
   }
 }
